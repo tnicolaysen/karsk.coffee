@@ -1,39 +1,42 @@
 class Core
-	this.modules
 	# bindings = []
 
 	constructor: -> 
 		console.log "Created Core"
-		this.modules = []
+		@modules = []
 
 	register: (module) -> 
-		console.log this.modules
 		console.log "Registering '#{module.moduleName}' into the Core"
-		this.modules[module.moduleName] = module
+		@modules[module.moduleName] = module
+		return
 
 	start: (moduleId) ->
 		#modules[moduleId].sandbox = new Sandbox(this);
-		module = this.modules[moduleId]
+		module = @modules[moduleId]
 
 		if module?
 			module.init()
 		else
 			console.warn "Could not initialize module '#{moduleId}'" 
-	
+		
+		return
+
 	stop: (moduleId) ->
-		module = this.modules[moduleId]
+		module = @modules[moduleId]
 		
 		if module? 
 			module.destroy()
 		else 
 			console.warn "Could not initialize module '#{moduleId}'"
 		
+		return
+		
 	startAll: ->
-		this.start moduleId for moduleId of this.modules
+		this.start moduleId for moduleId of @modules
 		return
 
 	stopAll: ->
-		this.stop moduleId for moduleId of this.modules
+		this.stop moduleId for moduleId of @modules
 		return
 
 	# registerBinding: (eventName, functionToCall) ->
