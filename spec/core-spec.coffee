@@ -1,5 +1,5 @@
-Core = require('../src/core').Core
-Module = require('../src/module').Module
+{Core} = require '../src/core'
+{Module} = require '../src/module'
 
 describe "core", ->	
 	beforeEach ->

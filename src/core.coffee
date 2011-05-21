@@ -1,4 +1,5 @@
-{Sandbox} = require('../src/sandbox')
+try {Sandbox} = require "../src/sandbox"
+catch ignore
 
 class Core
 	# bindings = []
@@ -11,25 +12,28 @@ class Core
 		console.log "Registering '#{module.moduleName}' into the Core"
 		@modules[module.moduleName] = module
 		return
-
+		
+	_getModule: (moduleId) ->
+		if @modules[moduleId]
+			return @modules[moduleId]
+		else
+			console.warn "Did not find module with ID #{moduleId}" 
+			return
+		
 	start: (moduleId) ->
-		module = @modules[moduleId]
+		module = this._getModule(moduleId)
 
 		if module?
 			sandbox = new Sandbox(this)
 			module.init(sandbox)
-		else
-			console.warn "Could not initialize module '#{moduleId}'" 
 		
 		return
 
 	stop: (moduleId) ->
-		module = @modules[moduleId]
+		module = this._getModule(moduleId)
 		
 		if module? 
 			module.destroy()
-		else 
-			console.warn "Could not initialize module '#{moduleId}'"
 		
 		return
 		
@@ -57,4 +61,5 @@ class Core
 	# 	return response
 	# 	#failureCallback({status: "error" data: "Server F-ed up"})
 
-exports.Core = Core
+try exports.Core = Core
+catch ignore

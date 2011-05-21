@@ -2,7 +2,7 @@ class Module
 	constructor: (@moduleName, @options) ->
 		console.info "Creating module '#{@moduleName}'"
 		
-	init: (@sandbox)->
+	init: (@sandbox) ->
 		console.info "Initializing '#{@moduleName}'"
 		console.warn "No sandbox provided" unless @sandbox? 
 			
@@ -12,4 +12,6 @@ class Module
 		console.info "Destroying '#{@moduleName}"
 		this.isRunning = false
 
-exports.Module = Module
+try exports.Module = Module
+catch ignore
+	

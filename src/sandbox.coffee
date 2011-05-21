@@ -2,4 +2,5 @@ class Sandbox
 	constructor: (@core) ->
 		console.info "Creating a new Sandbox"
 
-exports.Sandbox = Sandbox
+try exports.Sandbox = Sandbox;
+catch ignore
