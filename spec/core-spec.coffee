@@ -59,9 +59,14 @@ describe "core", ->
 				expect(@testModule.isRunning).toBeFalsy()
 				expect(anotherTestModule.isRunning).toBeFalsy()
 				
-		xdescribe "provide a sandbox to modules", ->
+		describe "provide a sandbox to modules", ->
+			beforeEach ->
+				@core.register @testModule
+	
+			it "should create a default sandbox instance for the module", ->
+				@core.start @testModuleId
+				expect(@testModule.sandbox).toBeDefined()
 			
-			xit "should create a default sandbox instance for the module", ->
-				return
-				
-				
+			it "should have pass a reference of itself to the sandbox", ->
+				@core.start @testModuleId
+				expect(@testModule.sandbox.core).toBe(@core)

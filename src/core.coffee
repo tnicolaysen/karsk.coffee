@@ -1,3 +1,5 @@
+{Sandbox} = require('../src/sandbox')
+
 class Core
 	# bindings = []
 
@@ -11,11 +13,11 @@ class Core
 		return
 
 	start: (moduleId) ->
-		#modules[moduleId].sandbox = new Sandbox(this);
 		module = @modules[moduleId]
 
 		if module?
-			module.init()
+			sandbox = new Sandbox(this)
+			module.init(sandbox)
 		else
 			console.warn "Could not initialize module '#{moduleId}'" 
 		

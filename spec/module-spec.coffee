@@ -1,11 +1,13 @@
-{Module, ModuleStatus} = require('../src/module')
+{Module} = require('../src/module')
+#{Sandbox} = require('../src/Sandbox')
 
 describe "module", -> 
 	beforeEach ->
 		@name = "Forty-two"
 		@options = {some: "option"}
 		@module = new Module @name, @options
-		
+
+
 	it "should have a name", ->
 		expect(@module.moduleName).toBe @name
 	
@@ -25,4 +27,8 @@ describe "module", ->
 		
 		expect(@module.isRunning).toBeFalsy()
 		
-#	it "should get receive a sandbox when initializing", ->
+	it "should get a sandbox when initializing", ->
+		sandbox = ->
+		@module.init(sandbox)
+		
+		expect(@module.sandbox).toBe(sandbox)

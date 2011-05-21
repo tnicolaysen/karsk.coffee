@@ -1,13 +1,15 @@
 class Module
 	constructor: (@moduleName, @options) ->
-		console.log "Creating module '#{@moduleName}'"
+		console.info "Creating module '#{@moduleName}'"
 		
-	init: ->
-		console.log "Initializing '#{@moduleName}'"
+	init: (@sandbox)->
+		console.info "Initializing '#{@moduleName}'"
+		console.warn "No sandbox provided" unless @sandbox? 
+			
 		this.isRunning = true
 		
 	destroy: ->
-		console.log "Destroying '#{@moduleName}"
+		console.info "Destroying '#{@moduleName}"
 		this.isRunning = false
 
 exports.Module = Module
